@@ -87,7 +87,7 @@ public class PostController {
                              @AuthenticationPrincipal CustomUserDetails userDetails){
 
         likeService.toggleLike(id,userDetails.getId());
-        return"redirect:/posts/"+id;
+        return "redirect:/posts/"+id;
     }
 
 
