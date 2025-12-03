@@ -54,4 +54,15 @@ public class PostServiceImpl implements PostService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<PostResponse> getPostsByUsername (String username){
+        // user을 찾음. 이 유저가 작성한 게시물을 찾기위해
+        User user = userService.findByUsername(username);
+
+        return postRepository.findByUserIdOrderByCreatedAtDesc(user.getId())
+                .stream().map(PostResponse::from)
+                .collect(Collectors.toList());
+
+    }
+
 }
