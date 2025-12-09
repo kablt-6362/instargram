@@ -26,4 +26,6 @@ public interface PostService {
     // 전체 조회
     Slice<PostResponse> getAllPostsPaging(Pageable pageable);
 
+    Slice<PostResponse> searchPosts(String keyword,Pageable pageable);
+
 }

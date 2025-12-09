@@ -2,6 +2,7 @@ package com.example.instagram.repository;
 
 import com.example.instagram.dto.response.PostResponse;
 import com.example.instagram.entity.Post;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -31,5 +32,8 @@ public interface PostRepository extends JpaRepository<Post,Long> {
     // 전체게시물 조회 (페이징)
     @Query("SELECT p FROM Post p JOIN FETCH p.user ORDER BY p.createdAt DESC")
     Slice<Post> findAllWithUserPaging(Pageable pageable);
+
+    @Query("SELECT p FROM Post p JOIN FETCH p.user WHERE p.content LIKE %:keyword% ORDER BY p.createdAt DESC")
+    Slice<Post> searchByKeyword(@Param("keyword") String keyword , Pageable pageable);
 
 }
